@@ -15,7 +15,7 @@ if (!empty($_POST)) {
     $password = trim($_POST['password']);
     $query = 'SELECT user_name, hashed_password
            FROM writers
-           WHERE pseudo= ?';
+           WHERE user_name= ?';
     $sth = $dbh->prepare($query);
     $sth->execute([$_POST['pseudo']]);
     $authentification = $sth->fetch();
@@ -26,7 +26,7 @@ if (!empty($_POST)) {
         session_start();
         $_SESSION['authentification'] = $authentification['id'];
 
-        header('Location:comptee.php');
+        header('Location:compte.php');
         exit;
     } else {
         header('Location:authentification.php');
