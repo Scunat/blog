@@ -12,33 +12,22 @@ $dbh = new PDO(
 
 //var_dump($_FILES);
 
-if (!empty($_POST)) {
-    $article[$_POST['id']] =
-        [
-            'titre' => $_POST['title'],
-            'contenu' => $_POST['content'],
-            'date de publication' => $_POST['publication_date'],
-            'fichier' => $_POST['image'],
-            'redacteur' => $_POST['idWriter'],
-        ];
-    $query = 'INSERT INTO posts(title, contenu, publication_date, idWriter) VALUE(?,?,?,?)';
-    $sth = $dbh->prepare($query);
-    $sth->execute($_POST['title'], $_POST['content'], $_POST['publication_date'], $_POST['image'],$_POST['idWriter'] );
-    header('Location:./');
-    exit;
-};
-
-
+//Inserer un fichier
 if (array_key_exists('fichier', $_FILES)) {
     if ($_FILES['fichier']['error'] === 0) {
         if (in_array(mime_content_type($_FILES['fichier']['tmp_name']), ['image/png', 'image/jpeg'])) {
             if ($_FILES['fichier']['size'] < 3000000) {
                 move_uploaded_file($_FILES['fichier']['tmp_name'], 'uploads/' . uniqid() . '.' . pathinfo($_FILES['fichier']['name'], PATHINFO_EXTENSION));
-                header('Location:./');
-                exit;
             }
         }
     }
 }
+
+//Entrer informations dans BDD
+if (!empty($_POST)) {
+    $query = 'INSERT INTO posts(title, content, publication_date, image, idWriter) VALUE(?,?,?,?,?)';
+    $sth = $dbh->prepare($query);
+    $sth->execute(array($_POST['title'], $_POST['content'], $_POST['publication_date'], $_POST['image'],$_POST['idWriter']));
+};
 
 include 'redactionArticle.phtml';
