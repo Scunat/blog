@@ -25,9 +25,14 @@ if (array_key_exists('fichier', $_FILES)) {
 
 //Entrer informations dans BDD
 if (!empty($_POST)) {
-    $query = 'INSERT INTO posts(title, content, publication_date, image, idWriter) VALUE(?,?,?,?,?)';
+    $title = trim($_POST['title']);
+    $content = trim($_POST['content']);
+    $image= trim($_POST['MAX_FILE_SIZE']);
+    $query = 'INSERT INTO posts(title, content, image) VALUE(?,?,?)';
     $sth = $dbh->prepare($query);
-    $sth->execute(array($_POST['title'], $_POST['content'], $_POST['publication_date'], $_POST['image'],$_POST['idWriter']));
+    $sth->execute([$title, $content, $image]);
+    header('compte.php');
 };
+
 
 include 'redactionArticle.phtml';

@@ -11,5 +11,8 @@
     <a href="index.php">Deconnexion</a>
     <h1>Tableau de bord</h1>
     <a href="redactionArticle.php">Rédiger un article</a>
+    <?php foreach ($title as $key => $title) : ?>
+        <?= $title ['title']; ?>
+        <?php endforeach; ?>
 </body>
 </html>

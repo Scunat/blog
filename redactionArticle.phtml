@@ -12,12 +12,12 @@
     <a href="compte.php">Tableau de bord</a>
     <a href="index.php">Deconnexion</a>
     <h1>Rédiger un article</h1>
-    <form action="compte.php" method="post" enctype="multipart/form-data">
+    <form action="redactionArticle.php" method="post" enctype="multipart/form-data">
         <input type="text" placeholder="Titre" name="title">
         <textarea placeholder="Contenu" name="content" id="" cols="30" rows="5"></textarea>
         <span>
         <input type="file" name="fichier" accept="image/png, image/jpeg">
-        <input type="hidden" name="MAX_FILE_SIZE" value="3000000">
+        <input type="hidden" name="MAX_FILE_SIZE">
         </span>
         <button type="submitt">Publier</button>
     </form>
