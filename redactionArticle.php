@@ -31,8 +31,19 @@ if (!empty($_POST)) {
     $query = 'INSERT INTO posts(title, content, image) VALUE(?,?,?)';
     $sth = $dbh->prepare($query);
     $sth->execute([$title, $content, $image]);
-    header('compte.php');
+    header('Location:compte.php');
+    exit;
 };
 
+if (!empty($_POST)) {
+$query= 'SELECT writers.id
+         FROM writers
+         INNER JOIN id ON posts.idWriter = writers.id';
+$sth = $dbh -> prepare($query);
+//$sth->bindValue($_GET['id'], PDO::PARAM_INT);
+$sth->execute([$posts]);
+$posts= $sth->fetch();
+var_dump($posts);
+};
 
 include 'redactionArticle.phtml';

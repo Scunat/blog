@@ -10,4 +10,11 @@ $dbh = new PDO(
 );
 //var_dump($dbh);
 
- include 'compte.phtml';
+$query= 'SELECT title, content
+         FROM posts';
+$sth = $dbh -> prepare($query);
+//$sth->execute([$_GET['id']]);
+$posts = $sth->fetchAll();
+var_dump($posts);
+
+include 'compte.phtml';

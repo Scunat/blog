@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord</title>
 </head>
+
 <body>
     <a href="index.php">Accueil</a>
     <a href="compte.php">Tableau de bord</a>
     <a href="index.php">Deconnexion</a>
     <h1>Tableau de bord</h1>
     <a href="redactionArticle.php">Rédiger un article</a>
-    <?php foreach ($title as $key => $title) : ?>
-        <?= $title ['title']; ?>
+    <?php if (count($posts) > 0) : ?>
+        <?php foreach ($posts as $post) : ?>
+           <li><?= htmlspecialchars($posts['title']) ?></li>
         <?php endforeach; ?>
+    <?php endif; ?>
 </body>
+
 </html>
